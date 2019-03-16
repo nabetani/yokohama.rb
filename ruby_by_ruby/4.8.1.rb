@@ -27,7 +27,7 @@ def evaluate(tree)
     left / right
   else
     raise "unknown tree item: #{tree[0]}"
-  end  
+  end
 end
 
 def test(x, expected)
