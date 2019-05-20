@@ -1,0 +1,145 @@
+-#coding:utf-8
+!!! 5
+-srand(0)
+-require "problem"
+%html
+  %head
+    %meta{ :charset=>'utf-8' }
+    %title=TITLE
+    :css
+      body, textarea {
+        font-family: sans-serif;
+        font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      ul * {
+        line-height:160%;
+      }
+      td.center{ text-align:center; }
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        background-color: #d8d8d8;
+        font-family:monospace;
+        padding:2pt 2pt 2pt 2pt ;
+        margin:1pt 1pt 1pt 1pt ;
+        border-radius:4px;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Consolas","Courier New";
+      }
+      tr.sample{
+        height:2em;
+      }
+      td.sample{
+      }
+      table.outer > tbody > tr > td{
+        border-left: black solid 1px;
+        vertical-align:top;
+      }
+      table.tet tr{
+        background-color:white;
+      }
+  %body
+    %h1=TITLE
+    %h2 問題の概要
+    %p
+      入力は、20bit以下の正の整数。16進数表記になっている。
+      %br
+      この整数を mask と呼ぶ。
+      %br
+      %code ( mask & n ) == n
+      %br
+      であるような整数 n の範囲を、
+      %br
+      %code=solve(S0)
+      %br
+      のような形式にまとめよう。
+    %h2 入力
+    %p
+      入力はこんな感じ：
+      %br
+      %code=S0
+      %br
+      16進数の正の整数。20bit以下なので、5桁以下。
+    %h2 出力
+    %p
+      出力は、連続する値の範囲を小さい順に並べたものをコンマでつないだもの。
+      %br
+      連続する値の範囲は、上端(10進数)と下端を(10進数)
+      %code -
+      でつなげたもの。
+      %br
+      ただし。上端と下端が等しい場合は単にその値を出せばよい。
+      %br
+      例えばこんな
+      %br
+      %code=solve(S1)
+      %br
+      具合。
+      %br
+      それと。
+      %br
+      出力が長すぎると鬱陶しいので、連続する値の範囲が 10個を超える場合は、先頭の9個と最後の1個を
+      %br
+      %code ,...,
+      %br
+      でつないで出力すること。
+      %br
+      例えばこんな
+      %br
+      %code=solve(S2)
+      %br
+      具合。
+    %h2 補足
+    %ul
+      %li 不正な入力に対処する必要はない。
+      %li 入力はJSONでもいいし、テスト関数でもいいし、標準入力でもいいし、それ以外のなにかでもいい。
+      - if QIITA_URL
+        %li
+          実装ができた方は
+          %a{ href:QIITA_URL }Qiitaの記事
+          のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      %li
+        この問題は
+        %a{ href:EVENT_URL } Yokohama.rb Monthly Meetup ##{EVENT_NUMBER} 
+        のために用意した問題ですが、イベントと関係なく、実装を公開していただいてももちろんOKです。ruby 以外でも。
+    %h2 サンプルデータ
+    %table.sample
+      %tr
+        %th #
+        %th 入力
+        %th 期待
+      - SAMPLES.each.with_index(0) do |src,ix|
+        %tr.sample
+          %td=ix
+          %td.sample
+            %code.src=src
+          %td
+            %code.expected=solve(src)
+    %h2 JSON 形式のテストデータ
+    %p
+      %a{ href:"data.json" } data.json
