@@ -3,7 +3,7 @@
 require "fileutils"
 
 def haml( body )
-  sh "haml -Eutf-8 src/#{body}.haml -Isrc > page/#{body}.html"
+  sh "haml -e -Eutf-8 src/#{body}.haml -Isrc > page/#{body}.html"
 end
 
 desc "bulid local files"
