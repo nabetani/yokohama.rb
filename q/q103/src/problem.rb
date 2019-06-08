@@ -6,9 +6,9 @@ EVENT_URL="https://yokohamarb.doorkeeper.jp/events/91907"
 EVENT_NUMBER = 103
 EVENT_ID="Yokohama.rb ##{EVENT_NUMBER}"
 QIITA_URL = nil
-TITLE="範囲を列挙 #{EVENT_ID}"
+TITLE="マスクしても同じ数 #{EVENT_ID}"
 
-S0="30ff"
+S0="1a"
 S1="5"
 S2=0b111110111.to_s(16)
 
