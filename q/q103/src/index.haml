@@ -19,7 +19,16 @@
       ul * {
         line-height:160%;
       }
-      td.center{ text-align:center; }
+      td, th{
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+      }
+      .right{ text-align: right; }
+      .left{ text-align:left; }
+      .center{ text-align:center; }
+      .monospace{
+        font-family: monospace;
+      }
       tr:nth-child(even) { background-color: #fafafa }
       tr:nth-child(odd) { background-color: #f0f0f0 }
       code {
@@ -54,15 +63,13 @@
       tr.sample{
         height:2em;
       }
-      td.sample{
+      td.true{
+        font-weight: bold;
       }
-      table.outer > tbody > tr > td{
-        border-left: black solid 1px;
-        vertical-align:top;
+      td.false{
+        color: #666;
       }
-      table.tet tr{
-        background-color:white;
-      }
+      
   %body
     %h1=TITLE
     %h2 問題の概要
@@ -75,7 +82,9 @@
       %br
       %code ( mask & n ) == n
       %br
-      であるような整数 n を最大10個出力せよ。順序等は後述。
+      であるような正の整数 n を「マスク適合」と呼ぶ。
+      %br
+      マスク適合な整数を最大#{ALEN}個出力せよ。順序等は後述。
     %h2 入力
     %p
       入力はこんな感じ：
@@ -85,9 +94,9 @@
       16進数の正の整数。20bit以下なので、5桁以下。
     %h2 出力
     %p
-      出力は、
-      %code ( mask & n ) == n
-      である値を小さい順にコンマ区切りで並べたもの。
+      出力は、マスク適合である整数の
+      %strong<> 10進数表示
+      を小さい順にコンマ区切りで並べたもの。
       %br
       例えばこんな
       %br
@@ -97,7 +106,7 @@
       %br
       それと。
       %br
-      出力が長すぎると鬱陶しいので、連続する値の範囲が 10個を超える場合は、先頭の9個と最後の1個を
+      出力が長すぎると鬱陶しいので、マスク適合な整数が#{ALEN}個を超える場合は、小さい方から#{ALEN_HEAD}個と大きい方から#{ALEN_TAIL}個をそれぞれ小さい順に並べてコンマ区切りで並べたものを
       %br
       %code ,...,
       %br
@@ -116,16 +125,23 @@
       %br
       ちなみに、#{S0}(16進数) は、2進数で #{S0.to_i(16).to_s(2)} である。
     %table
-      %tr
-        %th n (2進数)
-        %th n & mask (2進数)
-        %th ( mask & n ) == n
-      -mask = S0.to_i(16)
-      -(1..S0.to_i(16)).each do |n|
+      %thead
         %tr
-          %td=n.to_s(2)
-          %td=(n & mask).to_s(2)
-          %td=(n & mask)==n ? "TRUE" : "false"
+          %th n (10進数)
+          %th n (2進数)
+          %th n & mask (2進数)
+          %th ( mask & n ) == n
+      %tbody
+        -mask = S0.to_i(16)
+        -(1..S0.to_i(16)).each do |n|
+          %tr
+            %td.center.monospace=n
+            %td.right.monospace=n.to_s(2)
+            %td.right.monospace=(n & mask).to_s(2)
+            -if (n & mask)==n
+              %td.center.true=true
+            -else
+              %td.center.false=false
     %h2 補足
     %ul
       %li 不正な入力に対処する必要はない。

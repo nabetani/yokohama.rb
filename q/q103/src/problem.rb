@@ -8,8 +8,11 @@ EVENT_ID="Yokohama.rb ##{EVENT_NUMBER}"
 QIITA_URL = nil
 TITLE="マスクしても同じ数 #{EVENT_ID}"
 
+ALEN=15
+ALEN_HEAD=13
+ALEN_TAIL=ALEN-ALEN_HEAD
 S0="1a"
-S1="5"
+S1="aaa"
 S2=0b111110111.to_s(16)
 
 SAMPLES = [
@@ -22,13 +25,21 @@ SAMPLES = [
     55555 aaaaa 33333
   ),
   [
-    0b110011,
-    0b1110111,
-    0b11101110111,
-    0b1001100111,
-    2**19+1,
-    3*2**18+3,
-  ].map{ |e| e.to_s(16) }
+    14,
+    (0b11<<18)|3,
+    (0b111<<17)|3,
+    (0b111<<17),
+    (0b1111<<16),
+    (0b11111<<15),
+    (1..19).map{ |n|
+      e = (("0"*n+"1")*10)
+      e.to_i(2) & 0xfffff
+    },
+    Array.new(10){ |n|
+      rng=Random.new(n)
+      rng.rand(1<<20) & rng.rand(1<<20)
+    }
+  ].flatten.map{ |e| e.to_s(16) }
 ].flatten.uniq.sort_by{ |x| [ [x,solve(x)].join.size, x ] }
 
 def check(s)
