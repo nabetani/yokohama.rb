@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "fileutils"
 
 def haml( body )
@@ -24,5 +26,5 @@ end
 
 desc "upload to the server"
 task :upload => :local do
-  ruby "../upload.rb 103bitrange"
+  ruby "../upload.rb 103mask"
 end
