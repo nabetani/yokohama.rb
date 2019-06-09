@@ -2,10 +2,12 @@
 !!! 5
 -srand(0)
 -require "problem"
+-require "utility"
 %html
   %head
     %meta{ :charset=>'utf-8' }
     %title=TITLE
+    %link{ rel:"stylesheet", type:"text/css", href:"rouge.css" }
     :css
       body, textarea {
         font-family: sans-serif;
@@ -176,3 +178,5 @@
     %h2 JSON 形式のテストデータ
     %p
       %a{ href:"data.json" } data.json
+    %h2 Ruby - Minitest による雛形
+    %pre.highlight!=ruby_src("minitest_model.rb")

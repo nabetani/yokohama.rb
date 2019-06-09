@@ -7,11 +7,16 @@ def haml( body )
 end
 
 desc "bulid local files"
-task :local do
+task :local => :rouge_css do
   sh "mkdir -p page"
   haml "index"
   #haml "figs"
   sh "ruby src/makejson.rb > page/data.json"
+end
+
+desc "create rouge css file"
+task :rouge_css do
+  sh "rougify style github> page/rouge.css"
 end
 
 desc "show index.html"
