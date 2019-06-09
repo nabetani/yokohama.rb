@@ -1,23 +1,17 @@
 # frozen_string_literal: true
 
-
 class MaskedNumbers
   def initialize(mask)
     @mask = mask
+    @digits = @mask.digits(2)
     @count = @mask.to_s(2).gsub("0", "" ).to_i(2)
-    ch="a".dup
-    @pattern = @mask.to_s(2).reverse.gsub( "1" ){ ch.succ! } # 20bitなのでこれでよい。
   end
 
   private 
   def expand(i)
-    ch="a".dup
-    ix=-1
-    s=i.to_s(2).reverse
-    expanded = (?b..?z).inject(@pattern) do |acc,ch|
-      acc = acc.gsub(ch){ s[ix+=1]||"0" }
-    end
-    expanded.reverse.to_i(2)
+    d0 = i.digits(2)
+    d = @digits.map{ |e| e==1 ? (d0.shift||0) : 0 }
+    d.reverse.join.to_i(2)
   end
 
   public
