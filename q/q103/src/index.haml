@@ -33,6 +33,16 @@
       }
       tr:nth-child(even) { background-color: #fafafa }
       tr:nth-child(odd) { background-color: #f0f0f0 }
+      div.samplesrc {
+        padding:2pt 2pt 2pt 2pt ;
+        margin:1pt 1pt 1pt 1pt ;
+        border-radius:4px;
+        border: solid black 2px;
+        background-color: #f8f8f8;
+      }
+      pre.highlight{
+        margin:0.5em 0.5em 0.5em 0.5em ;
+      }
       code {
         background-color: #d8d8d8;
         font-family:monospace;
@@ -179,4 +189,5 @@
     %p
       %a{ href:"data.json" } data.json
     %h2 Ruby - Minitest による雛形
-    %pre.highlight!=ruby_src("minitest_model.rb")
+    %div.samplesrc
+      %pre.highlight!=ruby_src("minitest_model.rb")
