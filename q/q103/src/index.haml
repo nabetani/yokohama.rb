@@ -69,12 +69,15 @@
       td.false{
         color: #666;
       }
+      .nobr{
+        white-space: nowrap;
+      }
       
   %body
     %h1=TITLE
     %h2 問題の概要
     %p
-      入力は、正の整数。16進数表記になっている。2の20乗未満。
+      入力は、正の整数。16進数表記になっている。2の#{BITS}乗未満。
       %br
       この整数を mask と呼ぶ。
       %br
@@ -93,7 +96,7 @@
       %br
       %code=S0
       %br
-      16進数の正の整数。2の20乗未満なので、5桁以下。
+      16進数の正の整数。2の#{BITS}乗未満なので、5桁以下。
     %h2 出力
     %p
       出力は、マスク適合である整数の
@@ -165,8 +168,8 @@
         %th 期待
       - SAMPLES.each.with_index(0) do |src,ix|
         %tr.sample
-          %td=ix
-          %td.sample
+          %td.nobr=ix
+          %td.sample.nobr
             %code.src=src
           %td
             %code.expected=solve(src)
