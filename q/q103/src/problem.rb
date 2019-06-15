@@ -12,7 +12,7 @@ ALEN=15
 ALEN_HEAD=13
 ALEN_TAIL=ALEN-ALEN_HEAD
 S0="1a"
-S1="aaa"
+S1="abc"
 S2=0b111110111.to_s(16)
 BITS=28
 
@@ -29,6 +29,8 @@ SAMPLES = [
   [
     14,
     (1<<BITS)-1,
+    1<<(BITS-1),
+    3<<(BITS-2),
     (0b11<<(BITS-2))|3,
     (0b111<<(BITS-3))|3,
     (0b111<<(BITS-3)),
