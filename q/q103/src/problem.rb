@@ -5,7 +5,7 @@ require_relative "solver"
 EVENT_URL="https://yokohamarb.doorkeeper.jp/events/91907"
 EVENT_NUMBER = 103
 EVENT_ID="Yokohama.rb ##{EVENT_NUMBER}"
-QIITA_URL = nil
+QIITA_URL = "https://qiita.com/Nabetani/items/35e83eb39fed3c75d586"
 TITLE="マスクしても同じ数 #{EVENT_ID}"
 
 ALEN=15
