@@ -1,0 +1,193 @@
+-#coding:utf-8
+!!! 5
+-srand(0)
+-require "problem"
+-require "utility"
+%html
+  %head
+    %meta{ :charset=>'utf-8' }
+    %title=TITLE
+    %link{ rel:"stylesheet", type:"text/css", href:"rouge.css" }
+    :css
+      body, textarea {
+        font-family: sans-serif;
+        font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      ul * {
+        line-height:160%;
+      }
+      td, th{
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+      }
+      .right{ text-align: right; }
+      .left{ text-align:left; }
+      .center{ text-align:center; }
+      .monospace{
+        font-family: monospace;
+      }
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      div.samplesrc {
+        padding:2pt 2pt 2pt 2pt ;
+        margin:1pt 1pt 1pt 1pt ;
+        border-radius:4px;
+        border: solid black 2px;
+        background-color: #f8f8f8;
+      }
+      pre.highlight{
+        margin:0.5em 0.5em 0.5em 0.5em ;
+      }
+      code {
+        background-color: #d8d8d8;
+        font-family:monospace;
+        padding:2pt 2pt 2pt 2pt ;
+        margin:1pt 1pt 1pt 1pt ;
+        border-radius:4px;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Consolas","Courier New";
+      }
+      tr.sample{
+        height:2em;
+      }
+      td.true{
+        font-weight: bold;
+      }
+      td.false{
+        color: #666;
+      }
+      .nobr{
+        white-space: nowrap;
+      }
+      
+  %body
+    %h1=TITLE
+    %h2 問題の概要
+    %p
+      入力は、正の整数。16進数表記になっている。2の#{BITS}乗未満。
+      %br
+      この整数を mask と呼ぶ。
+      %br
+      そして。
+      %br
+      %code ( mask & n ) == n
+      %br
+      であるような正の整数 n を「マスク適合」と呼ぶ。
+      %br
+      で。
+      %br
+      マスク適合な整数を最大#{ALEN}個出力せよ。順序等は後述。
+    %h2 入力
+    %p
+      入力はこんな感じ：
+      %br
+      %code=S0
+      %br
+      16進数の正の整数。2の#{BITS}乗未満なので、5桁以下。
+    %h2 出力
+    %p
+      出力は、マスク適合である整数の
+      %strong<> 10進数表示
+      を小さい順にコンマ区切りで並べたもの。
+      %br
+      例えばこんな
+      %br
+      %code=solve(S0)
+      %br
+      具合。
+      %br
+      それと。
+      %br
+      出力が長すぎると鬱陶しいので、マスク適合な整数が#{ALEN}個を超える場合は、小さい方から#{ALEN_HEAD}個と大きい方から#{ALEN_TAIL}個以外は省略して、その部分は代わりに
+      %br
+      %code ,...,
+      %br
+      を出力すること。
+      %br
+      例えばこんな
+      %br
+      %code=solve(S1)
+      %br
+      具合。
+    %h2 具体例
+    %p
+      入力が
+      %code=S0
+      である場合を例に挙げる。
+      %br
+      ちなみに、#{S0}(16進数) は、2進数で #{S0.to_i(16).to_s(2)} である。
+    %table
+      %thead
+        %tr
+          %th n (10進数)
+          %th n (2進数)
+          %th n & mask (2進数)
+          %th ( mask & n ) == n
+      %tbody
+        -mask = S0.to_i(16)
+        -(1..S0.to_i(16)).each do |n|
+          %tr
+            %td.center.monospace=n
+            %td.right.monospace=n.to_s(2)
+            %td.right.monospace=(n & mask).to_s(2)
+            -if (n & mask)==n
+              %td.center.true=true
+            -else
+              %td.center.false=false
+    %h2 補足
+    %ul
+      %li 不正な入力に対処する必要はない。
+      %li 入力はJSONでもいいし、テスト関数でもいいし、標準入力でもいいし、それ以外のなにかでもいい。
+      - if QIITA_URL
+        %li
+          実装ができた方は
+          %a{ href:QIITA_URL }Qiitaの記事
+          のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      %li
+        この問題は
+        %a{ href:EVENT_URL } Yokohama.rb Monthly Meetup ##{EVENT_NUMBER} 
+        のために用意した問題ですが、イベントと関係なく、実装を公開していただいてももちろんOKです。ruby 以外でも。
+    %h2 サンプルデータ
+    %table.sample
+      %tr
+        %th #
+        %th 入力
+        %th 期待
+      - SAMPLES.each.with_index(0) do |src,ix|
+        %tr.sample
+          %td.nobr=ix
+          %td.sample.nobr
+            %code.src=src
+          %td
+            %code.expected=solve(src)
+    %h2 JSON 形式のテストデータ
+    %p
+      %a{ href:"data.json" } data.json
+    %h2 Ruby - Minitest による雛形
+    %div.samplesrc
+      %pre.highlight!=ruby_src("minitest_model.rb")
