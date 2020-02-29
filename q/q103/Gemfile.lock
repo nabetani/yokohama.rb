@@ -12,7 +12,7 @@ GEM
     pry-doc (1.0.0)
       pry (~> 0.11)
       yard (~> 0.9.11)
-    rake (12.3.2)
+    rake (12.3.3)
     rouge (3.3.0)
     temple (0.8.1)
     tilt (2.0.9)
